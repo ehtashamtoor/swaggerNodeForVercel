@@ -31,25 +31,20 @@ const options = {
 const swaggerSpec = swaggerJsdoc(options);
 
 const setupSwagger = (app) => {
-  const swaggerUiOptions = {
-    customCss: `
-      .swagger-ui .topbar { display: none; }
-      .swagger-ui .information-container { background: #fafafa; padding: 20px; }
-    `,
-    customCssUrl: `${SWAGGER_CDN_URL}/swagger-ui.css`,
-    customJs: [
-      `${SWAGGER_CDN_URL}/swagger-ui-bundle.js`,
-      `${SWAGGER_CDN_URL}/swagger-ui-standalone-preset.js`,
-    ],
-    swaggerOptions: {
-      persistAuthorization: true,
-      displayRequestDuration: true,
-    },
-  };
   app.use(
     "/api-docs",
     swaggerUi.serve,
-    swaggerUi.setup(swaggerSpec, swaggerUiOptions)
+    swaggerUi.setup(swaggerSpec, {
+      customCssUrl: [
+        "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.min.css",
+        "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.min.css",
+      ],
+      customJs: [
+        "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.min.js",
+        "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.min.js",
+      ],
+      customSiteTitle: "Family Tree API",
+    })
   );
 };
 
