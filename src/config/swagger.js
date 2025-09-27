@@ -15,14 +15,14 @@ const options = {
       description: "API documentation for the Family Tree MVP (MERN stack)",
     },
     servers: [
-      {
-        url: "http://localhost:3000/api",
-        description: "Local server",
-      },
-      {
-        url: "https://backend-family-tree.vercel.app/api-docs",
-        description: "Production server",
-      },
+      // {
+      //   url: "http://localhost:3000/api",
+      //   description: "Local server",
+      // },
+      // {
+      //   url: "https://backend-family-tree.vercel.app/api-docs",
+      //   description: "Production server",
+      // },
     ],
   },
   apis: ["./src/routes/*.js"],
