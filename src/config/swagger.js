@@ -20,7 +20,7 @@ const options = {
         description: "Local server",
       },
       {
-        url: "https://backend-family-tree.vercel.app/api",
+        url: "https://backend-family-tree.vercel.app/api-docs",
         description: "Production server",
       },
     ],
