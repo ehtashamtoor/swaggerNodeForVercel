@@ -1,8 +1,10 @@
 const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 
-const CSS_URL =
-  "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css";
+// const CSS_URL =
+//   "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css";
+
+const SWAGGER_CDN_URL = "https://unpkg.com/swagger-ui-dist@5.9.0";
 
 const options = {
   definition: {
@@ -29,10 +31,25 @@ const options = {
 const swaggerSpec = swaggerJsdoc(options);
 
 const setupSwagger = (app) => {
+  const swaggerUiOptions = {
+    customCss: `
+      .swagger-ui .topbar { display: none; }
+      .swagger-ui .information-container { background: #fafafa; padding: 20px; }
+    `,
+    customCssUrl: `${SWAGGER_CDN_URL}/swagger-ui.css`,
+    customJs: [
+      `${SWAGGER_CDN_URL}/swagger-ui-bundle.js`,
+      `${SWAGGER_CDN_URL}/swagger-ui-standalone-preset.js`,
+    ],
+    swaggerOptions: {
+      persistAuthorization: true,
+      displayRequestDuration: true,
+    },
+  };
   app.use(
     "/api-docs",
     swaggerUi.serve,
-    swaggerUi.setup(swaggerSpec, { customCssUrl: CSS_URL })
+    swaggerUi.setup(swaggerSpec, swaggerUiOptions)
   );
 };
 
