@@ -35,7 +35,7 @@ app.use("/api", limiter);
 // Swagger Docs
 setupSwagger(app);
 
-app.use(helmet());
+// app.use(helmet());
 // API Routes
 app.use("/api/members", memberRoutes);
 
