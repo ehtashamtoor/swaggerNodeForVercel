@@ -25,7 +25,6 @@ const corsOptions = {
 };
 
 // Middlewares
-app.use(helmet());
 app.use(cors(corsOptions));
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
@@ -36,6 +35,7 @@ app.use("/api", limiter);
 // Swagger Docs
 setupSwagger(app);
 
+app.use(helmet());
 // API Routes
 app.use("/api/members", memberRoutes);
 
