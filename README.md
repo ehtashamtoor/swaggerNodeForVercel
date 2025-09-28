@@ -1,157 +1,88 @@
-# 🌳 Family Tree Backend (Node.js + Express + MongoDB)
+# Family Tree API
 
-This is the **backend API** for the Family Tree MVP.  
-It provides endpoints to manage members, build the family tree, and calculate points distribution (with wasted points).
+This project is a Node.js REST API for a Family Tree MVP, featuring Swagger (OpenAPI) documentation and ready for deployment on Vercel.
 
----
+## Features
 
-## 🚀 Features
-
-- Node.js + Express backend
-- MongoDB with Mongoose ODM
-- Family tree CRUD (add members, get tree, get details)
-- Points distribution logic:
-  - Each new member distributes **10 points** up the ancestor chain
-  - Max depth: **10 levels**
-  - Remaining points are stored as **wasted**
-- Stats API: total members, total distributed points, total wasted points
-- Swagger API documentation (`/api-docs`)
-- Error handling & rate limiting
+- Express.js REST API
+- Swagger UI documentation at `/api-docs`
+- Vercel deployment support
 
 ---
 
-## 📂 Project Structure
+## Local Development
 
-```
-backend/
-│── index.js              # Entry point
-│── src/
-│   ├── app.js            # Express app setup
-│   ├── config/
-│   │   ├── database.js   # MongoDB connection
-│   │   └── swagger.js    # Swagger config
-│   ├── controllers/
-│   │   └── memberController.js
-│   ├── services/
-│   │   └── memberService.js
-│   ├── models/
-│   │   └── Member.js
-│   ├── routes/
-│   │   └── members.js
-│   └── middlewares/
-│       ├── errorHandler.js
-│       ├── notFound.js
-│       └── rateLimiter.js
-└── vercel.json           # Vercel deployment config
-```
+1. **Install dependencies:**
+
+   ```bash
+   npm install
+   ```
+
+2. **Run the server:**
+
+   ```bash
+   npm start
+   ```
+
+   The API will be available at `http://localhost:3000` by default.
+
+3. **Access Swagger Docs:**
+   Open [http://localhost:3000/api-docs](http://localhost:3000/api-docs) in your browser to view the API documentation.
 
 ---
 
-## ⚙️ Installation
+## Swagger Setup
 
-1. Clone the repository:
+Swagger is configured in [`src/config/swagger.js`](src/config/swagger.js) using `swagger-jsdoc` and `swagger-ui-express`. The Swagger UI assets are loaded from a CDN for compatibility with Vercel's serverless environment.
 
-```bash
-git clone <your-repo-url>
-cd backend
-```
+**Key points:**
 
-2. Install dependencies:
-
-```bash
-npm install
-```
-
-3. Set up environment variables: create a `.env` file:
-
-```env
-PORT=3000
-MONGO_URI=<your-mongodb-uri>
-CLIENT_URL=http://localhost:5173
-NODE_ENV=development
-```
+- The Swagger UI is served at `/api-docs`.
+- CDN assets are used for Swagger UI to avoid static file issues on Vercel.
+- The API base URL is set dynamically based on the environment (production or development).
 
 ---
 
-## ▶️ Running Locally
+## Deploying to Vercel
 
-Start the backend server:
+1. **Install Vercel CLI (optional):**
 
-```bash
-npm start
+   ```bash
+   npm install -g vercel
+   ```
+
+2. **Deploy:**
+
+   ```bash
+   vercel
+   ```
+
+   Follow the prompts to deploy your project.
+
+3. **Production Swagger Docs:**
+   After deployment, access your API docs at `https://<your-vercel-app>.vercel.app/api-docs`.
+
+---
+
+## File Structure
+
 ```
-
-Server will run at:
-
-```
-http://localhost:3000
-```
-
-Swagger docs at:
-
-```
-http://localhost:3000/api-docs
+index.js
+src/
+  config/
+    swagger.js      # Swagger setup
+  ...
+vercel.json         # Vercel config
 ```
 
 ---
 
-## 🌍 API Endpoints
+## Environment Variables
 
-### Health Check
-
-```
-GET /api/health
-```
-
-### Members
-
-- `POST /api/members` → Add a new member
-- `GET /api/members/tree` → Get full family tree
-- `GET /api/members/:id` → Get member by ID
-- `GET /api/members/stats` → Get statistics (total members, distributed points, wasted points)
+- `NODE_ENV` is used to determine the API base URL in Swagger docs.
 
 ---
 
-## 📊 Points Distribution Logic
+## License
 
-- Every new member brings **30 points**.
-- These points are distributed as:
-  - **10 points per ancestor**
-  - Up to **10 levels** up the chain
-- If not enough ancestors:
-  - Remaining points are stored as `wastedPoints`.
-
----
-
-## 🚀 Deployment (Vercel)
-
-1. Add `vercel.json` in root:
-
-```json
-{
-  "version": 2,
-  "builds": [{ "src": "index.js", "use": "@vercel/node" }],
-  "routes": [{ "src": "/(.*)", "dest": "index.js" }]
-}
-```
-
-2. Push code to GitHub.
-3. Deploy to Vercel with:
-
-```bash
-vercel
-```
-
-4. Set environment variables in Vercel dashboard:
-   - `MONGO_URI`
-   - `CLIENT_URL`
-   - `NODE_ENV=production`
-
----
-
-## 🛠️ Tech Stack
-
-- **Node.js** (Express)
-- **MongoDB** (Mongoose)
-- **Swagger** (API docs)
-- **Helmet + CORS + Rate Limiting** (security)
+MIT
