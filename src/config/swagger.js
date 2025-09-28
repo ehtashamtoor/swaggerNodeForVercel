@@ -13,15 +13,15 @@ const options = {
       version: "1.0.0",
       description: "API documentation for the Family Tree MVP (MERN stack)",
     },
-    servers: [
-      {
-        url:
-          process.env.NODE_ENV === "production"
-            ? "https://swagger-node-for-vercel.vercel.app" // production API base
-            : "http://localhost:3000", // local dev API base
-        description: "API server",
-      },
-    ],
+    // servers: [
+    //   {
+    //     url:
+    //       process.env.NODE_ENV === "production"
+    //         ? "https://swagger-node-for-vercel.vercel.app" // production API base
+    //         : "http://localhost:3000", // local dev API base
+    //     description: "API server",
+    //   },
+    // ],
   },
   apis: ["./src/routes/*.js"],
 };
